@@ -79,3 +79,66 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def add_task(tasks):
+    """Prompt the user to enter a task and add it to the list."""
+    task = input("Enter task: ")
+    tasks.append(task)
+    print(f'Task added: "{task}"')
+
+def view_tasks(tasks):
+    """Display all tasks currently in the list."""
+    if not tasks:
+        print("Your Tasks: (none)")
+    else:
+        print("Your Tasks:")
+        for i, task in enumerate(tasks, start=1):
+            print(f" {i}. {task}")
+
+def delete_task(tasks):
+    """Show the list of tasks with their numbers and ask the user which task to delete."""
+    if not tasks:
+        print("No tasks to delete.")
+        return
+
+    view_tasks(tasks)
+    try:
+        task_number = int(input("Enter task number to delete: "))
+        if 1 <= task_number <= len(tasks):
+            deleted_task = tasks.pop(task_number - 1)
+            print(f'Task "{deleted_task}" has been removed.')
+        else:
+            print("Invalid task number.")
+    except ValueError:
+        print("Error: Please enter a valid integer.")
+
+def main():
+    """Main function to execute the to-do list program."""
+    tasks = []
+
+    while True:
+        print("\n============================")
+        print("       TO-DO LIST MENU")
+        print("============================")
+        print("1. Add task")
+        print("2. View tasks")
+        print("3. Delete task")
+        print("4. Quit")
+
+        try:
+            choice = int(input("Enter your choice (1-4): "))
+            if choice == 1:
+                add_task(tasks)
+            elif choice == 2:
+                view_tasks(tasks)
+            elif choice == 3:
+                delete_task(tasks)
+            elif choice == 4:
+                print("Goodbye!")
+                break
+            else:
+                print("Invalid choice. Please enter a number between 1 and 4.")
+        except ValueError:
+            print("Error: Please enter a valid integer.")
+
+if __name__ == "__main__":
+    main()
